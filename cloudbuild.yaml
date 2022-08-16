@@ -1,15 +1,15 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/${_APP_NAME}:${SHORT_SHA}', '.', '--build-arg', 'COMMIT_ID=${SHORT_SHA}', '--build-arg', 'BRANCH_NAME=${BRANCH_NAME}', '--build-arg', 'VERSION=${_APP_VERSION}', '--build-arg', 'REGION=${_APP_REGION}']
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/${_APP_NAME}:${SHORT_SHA}', '.', '--build-arg', 'COMMIT_ID=${SHORT_SHA}', '--build-arg', 'BRANCH_NAME=${BRANCH_NAME}', '--build-arg', 'VERSION=${_APP_VERSION}', '--build-arg', 'REGION=${_APP_REGION}']
     # push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/${_APP_NAME}']
+    args: ['push', 'eu.gcr.io/$PROJECT_ID/${_APP_NAME}:${SHORT_SHA}']
     # deploy container image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'run', 'deploy', '${_APP_NAME}-${_APP_ENV}-${_APP_VERSION}-${_APP_REGION_SHORTCODE}', '--image', 'gcr.io/$PROJECT_ID/${_APP_NAME}:${SHORT_SHA}', '--region', '${_APP_REGION}', '--allow-unauthenticated', '--platform', 'managed']
+    args: ['beta', 'run', 'deploy', '${_APP_NAME}-${_APP_ENV}-${_APP_VERSION}-${_APP_REGION_SHORTCODE}', '--image', 'eu.gcr.io/$PROJECT_ID/${_APP_NAME}:${SHORT_SHA}', '--region', '${_APP_REGION}', '--allow-unauthenticated', '--platform', 'managed']
     env:
       - 'PORT=8080'
       - 'APP_ENV=${BRANCH_NAME}'
       - 'APP_REGION=${_APP_REGION}'
 images:
-  - gcr.io/$PROJECT_ID/${_APP_NAME}
+  - eu.gcr.io/$PROJECT_ID/${_APP_NAME}
