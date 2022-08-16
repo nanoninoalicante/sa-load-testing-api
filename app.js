@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 // This is your test secret API key.
-const stripe = require("stripe")('sk_test_51J18RHDDF4yhC66h25YFvgpRTYWYyLpwlAIZGeDPEUQgqegbv8vV4XvP2fwmSrWa2dbSoLGg4yJp4rmLLelHnCoS00aTMLDT2f');
+const stripe = require("stripe")(STRIPE_SECRET_KEY);
 
 app.use(cors());
 app.use(express.static("public"));
