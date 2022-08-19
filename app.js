@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const STRIPE_CONNECT_ACCOUNT = process.env.STRIPE_CONNECT_ACCOUNT;
 // This is your test secret API key.
 const stripe = require("stripe")(STRIPE_SECRET_KEY);
 
@@ -16,13 +17,13 @@ const calculateOrderAmount = (items) => {
 
 const calculateConnectedDestinationAmount = (amount) => {
   return Math.floor(amount * 0.15);
-}
+};
 
 app.get("/", (req, res) => {
-  return res.send({ hello: 'worlds' })
-})
+  return res.send({ hello: "worlds" });
+});
 
-app.post('/create-subscription', async (req, res) => {
+app.post("/create-subscription", async (req, res) => {
   const customerId = req.body.customerId;
   const priceId = req.body.priceId;
 
@@ -32,16 +33,18 @@ app.post('/create-subscription', async (req, res) => {
     // so we can pass it to the front end to confirm the payment
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
-      items: [{
-        price: priceId,
-      }],
-      payment_behavior: 'default_incomplete',
-      payment_settings: { save_default_payment_method: 'on_subscription' },
-      expand: ['latest_invoice.payment_intent'],
+      items: [
+        {
+          price: priceId,
+        },
+      ],
+      payment_behavior: "default_incomplete",
+      payment_settings: { save_default_payment_method: "on_subscription" },
+      expand: ["latest_invoice.payment_intent"],
       transfer_data: {
         amount_percent: 15,
-        destination: 'acct_1LSGuERVccEGysdI'
-      }
+        destination: STRIPE_CONNECT_ACCOUNT,
+      },
     });
 
     res.send({
@@ -57,7 +60,7 @@ app.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
   const { customer } = req.body;
   const amount = calculateOrderAmount(items);
-  const { connectAccountId = 'acct_1LSGuERVccEGysdI' } = req.body;
+  const { connectAccountId = STRIPE_CONNECT_ACCOUNT } = req.body;
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
@@ -70,7 +73,7 @@ app.post("/create-payment-intent", async (req, res) => {
       amount: calculateConnectedDestinationAmount(amount),
       destination: connectAccountId,
     },
-    customer
+    customer,
   });
 
   res.send({
