@@ -104,17 +104,23 @@ app.post("/create-payment-intent-hold", async (req, res) => {
 
 
 app.post("/confirm-hold/:intent", async (req, res) => {
-  const { intent } = req.params;
+  try {
+    const { intent } = req.params;
 
-  const amount = calculateOrderAmount([]);
-  // Create a PaymentIntent with the order amount and currency
-  const paymentIntent = await stripe.paymentIntents.capture(intent, {
-    amount_to_capture: amount,
-  })
+    const amount = calculateOrderAmount([]);
+    // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.paymentIntents.capture(intent, {
+      amount_to_capture: amount,
+    })
 
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  });
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+
+  } catch (error) {
+    console.log("error: ", error);
+    res.status(400).send({ error: error.message })
+  }
 });
 
 app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
