@@ -106,7 +106,7 @@ app.post("/create-payment-intent-hold", async (req, res) => {
 app.post("/confirm-hold/:intent", async (req, res) => {
   const { intent } = req.params;
 
-  const amount = calculateOrderAmount(items);
+  const amount = calculateOrderAmount([]);
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.capture(intent, {
     amount_to_capture: amount,
