@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const randomWords = require('random-words');
 const app = express();
 const PORT = process.env.PORT || 8080;
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
@@ -77,6 +78,27 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 
   res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+app.post("/charged-saved-payment-method", async (req, res) => {
+  const { customer } = req.body;
+  const amount = calculateOrderAmount([]);
+  const id = randomWords({ exactly: 2, join: '-' });
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "gbp",
+    confirm: true,
+    customer,
+    off_session: true,
+    description: `Payment - ${id}`
+  });
+
+  res.send({
+    paymentName: id,
     clientSecret: paymentIntent.client_secret,
   });
 });
