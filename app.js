@@ -14,12 +14,14 @@ app.get("/", (req, res) => {
 });
 
 app.all("/timeout/:amount?", (req, res) => {
+    const requestId = randomWords({ exactly: 2, join: '-' })
     const { amount = 1000 } = req.params;
-    console.time();
-    console.log("start")
+    console.log('request start: ', requestId);
+    console.time("start");
     setTimeout(() => {
-        console.timeEnd()
-        console.log("end")
+        
+        console.log('request end: ', requestId);
+        console.timeEnd("start")
         return res.send({ hello: "worlds", amount });
     }, amount)
 
