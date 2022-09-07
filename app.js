@@ -10,7 +10,19 @@ app.use(express.json());
 
 
 app.get("/", (req, res) => {
-  return res.send({ hello: "worlds" });
+    return res.send({ hello: "worlds" });
+});
+
+app.all("/timeout/:amount?", (req, res) => {
+    const { amount = 1000 } = req.params;
+    console.time();
+    console.log("start")
+    setTimeout(() => {
+        console.timeEnd()
+        console.log("end")
+        return res.send({ hello: "worlds", amount });
+    }, amount)
+
 });
 
 
