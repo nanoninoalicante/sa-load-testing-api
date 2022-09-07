@@ -19,11 +19,11 @@ app.get("/", (req, res) => {
 app.all("/timeout/:amount?", async (req, res) => {
     const requestId = randomWords({ exactly: 2, join: '-' })
     const { amount = 1000 } = req.params;
-    await axios("https://webhook.site/5f4f4345-74b6-4b90-9f74-28694c0bacec?status=start&request=" + requestId);
+    await axios("https://webhook.site/40f69535-8154-417e-8c6c-b801c4d95b83?status=start&request=" + requestId);
     console.log('request start: ', requestId);
     console.time(requestId);
     await sleep(amount);
-    await axios("https://webhook.site/5f4f4345-74b6-4b90-9f74-28694c0bacec?status=end&request=" + requestId);
+    await axios("https://webhook.site/40f69535-8154-417e-8c6c-b801c4d95b83?status=end&request=" + requestId);
 
     console.log('request end: ', requestId);
     console.timeEnd(requestId)
