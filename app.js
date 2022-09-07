@@ -21,12 +21,12 @@ app.all("/timeout/:amount?", async (req, res) => {
     const { amount = 1000 } = req.params;
     await axios("https://webhook.site/5f4f4345-74b6-4b90-9f74-28694c0bacec?request=" + requestId);
     console.log('request start: ', requestId);
-    console.time("start");
+    console.time(requestId);
     await sleep(amount);
     await axios("https://webhook.site/5f4f4345-74b6-4b90-9f74-28694c0bacec?request=" + requestId);
 
     console.log('request end: ', requestId);
-    console.timeEnd("start")
+    console.timeEnd(requestId)
     return res.send({ hello: "worlds", amount });
 
 });
