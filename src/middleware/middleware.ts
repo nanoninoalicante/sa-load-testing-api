@@ -39,13 +39,13 @@ export const requestMiddleware = (
       console.log("before middleware");
       res.locals.requestId = ksuid.randomSync().string;
       res.locals.requestTs = new Date().toISOString();
-      res.setHeader("X-API-REQUEST-ID", res.locals.requestId);
-      res.setHeader("X-API-REQUEST-TS", res.locals.requestTs);
-      res.setHeader("X-API-ENV", ENVIRONMENT);
-      res.setHeader("X-API-VERSION", VERSION);
-      res.setHeader("X-API-COMMIT-ID", COMMIT_ID);
-      res.setHeader("X-API-BRANCH-NAME", BRANCH_NAME);
-      res.setHeader("X-API-REGION", REGION);
+      // res.setHeader("X-API-REQUEST-ID", res.locals.requestId);
+      // res.setHeader("X-API-REQUEST-TS", res.locals.requestTs);
+      // res.setHeader("X-API-ENV", ENVIRONMENT);
+      // res.setHeader("X-API-VERSION", VERSION);
+      // res.setHeader("X-API-COMMIT-ID", COMMIT_ID);
+      // res.setHeader("X-API-BRANCH-NAME", BRANCH_NAME);
+      // res.setHeader("X-API-REGION", REGION);
       next();
 };
 
