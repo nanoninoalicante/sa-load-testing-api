@@ -8,5 +8,4 @@
 node_modules
 google-serviceaccount.json
 dist
-gtr-googlesheets*.json
 node_modules*

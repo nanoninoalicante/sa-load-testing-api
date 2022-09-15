@@ -28,6 +28,7 @@
     "helmet": "^4.6.0",
     "ksuid": "^3.0.0",
     "moment": "^2.29.1",
+    "mongoose": "^6.6.1",
     "random-words": "^1.2.0",
     "simple-parse-json": "^1.1.0",
     "sleep-promise": "^9.1.0"

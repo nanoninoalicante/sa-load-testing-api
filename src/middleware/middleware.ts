@@ -1,5 +1,7 @@
 import ksuid from "ksuid";
 import * as Sentry from "@sentry/node";
+
+import { connection } from "../mongoose/connect";
 import { config } from "dotenv";
 config();
 const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
@@ -13,8 +15,8 @@ export const authMiddleware = (req: any, res: any, next: () => void) => {
       const key = req.query?.api_key || req.headers.authorization;
       if (!key) {
             return res
-                .status(403)
-                .json({ error: "Unauthorized - missing api key" });
+                  .status(403)
+                  .json({ error: "Unauthorized - missing api key" });
       }
       if (key !== API_KEY) {
             return res.status(403).json({ error: "Unauthorized" });
@@ -28,8 +30,12 @@ export const requestMiddleware = (
             locals: { requestId: string; requestTs: string };
             setHeader: (arg0: string, arg1: string) => void;
       },
-      next: () => void
+      next: any
 ) => {
+
+      if (!connection) {
+            next({ error: "no connection" })
+      }
       console.log("before middleware");
       res.locals.requestId = ksuid.randomSync().string;
       res.locals.requestTs = new Date().toISOString();
