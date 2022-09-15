@@ -1,7 +1,6 @@
 import ksuid from "ksuid";
 import * as Sentry from "@sentry/node";
 
-import { connection } from "../mongoose/connect";
 import { config } from "dotenv";
 config();
 const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
@@ -32,10 +31,6 @@ export const requestMiddleware = (
       },
       next: any
 ) => {
-
-      if (!connection) {
-            next({ error: "no connection" })
-      }
       console.log("before middleware");
       res.locals.requestId = ksuid.randomSync().string;
       res.locals.requestTs = new Date().toISOString();
