@@ -16,7 +16,7 @@ export const disconnect = async () => {
 }
 export const main = async () => {
     try {
-        if (connection) {
+        if (!connection) {
             connection = mongoose.createConnection(MONGODB_HOST, {
                 serverSelectionTimeoutMS: 2000,
                 maxPoolSize: 1000,
