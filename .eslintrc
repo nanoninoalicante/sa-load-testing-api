@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-extra-semi": ["error"],
+    "prefer-arrow-callback": "error",
+    "no-unused-vars": "off",
+    "no-console": "off",
+    "no-redeclare": "error",
+    "no-undef": "error",
+    "no-buffer-constructor": "error"
+  },
+  "env": {
+    "node": true
+  },
+  "extends": ["eslint:recommended", "prettier"]
+}

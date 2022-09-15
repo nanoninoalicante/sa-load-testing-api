@@ -21,6 +21,6 @@ RUN npm ci
 # Copy the local code to the container
 COPY . .
 # Build
-# RUN npm run build-container
+RUN npm run build-container
 # Start the service
 CMD npm start
