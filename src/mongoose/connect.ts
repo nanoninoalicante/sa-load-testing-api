@@ -16,16 +16,15 @@ export const disconnect = async () => {
 }
 export const main = async () => {
     try {
-        if (!connection) {
-            connection = mongoose.createConnection(MONGODB_HOST, {
-                serverSelectionTimeoutMS: 2000,
-                maxPoolSize: 1000,
-                waitQueueTimeoutMS: 2000,
-                connectTimeoutMS: 2000
-            })
-            await connection.asPromise();
-            User = connection.model('User', usersSchema);
-        }
+        connection = mongoose.createConnection(MONGODB_HOST, {
+            serverSelectionTimeoutMS: 2000,
+            maxPoolSize: 1000,
+            waitQueueTimeoutMS: 2000,
+            connectTimeoutMS: 2000
+        })
+        await connection.asPromise();
+        User = connection.model('User', usersSchema);
+
         console.log("connected");
     } catch (error) {
         connection = null;
