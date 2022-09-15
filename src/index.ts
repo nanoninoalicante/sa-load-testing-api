@@ -5,14 +5,14 @@ import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
 import routes from "./routes/routes";
 import helmet from "helmet";
-
+import sleep from "sleep-promise";
 import {
     authMiddleware,
     errorMiddleware,
     requestMiddleware,
     responseMiddleware,
 } from "./middleware/middleware";
-import { main } from "./mongoose/connect";
+import { main, disconnect } from "./mongoose/connect";
 dotenv.config();
 const app = express();
 Sentry.init({
