@@ -22,7 +22,7 @@ export const main = async () => {
         //     waitQueueTimeoutMS: 2000,
         //     connectTimeoutMS: 1000
         // })
-        connection = mongoose.createConnection(MONGODB_HOST)
+        connection = mongoose.createConnection(MONGODB_HOST, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
         await connection.asPromise();
         User = connection.model('User', usersSchema);
 
