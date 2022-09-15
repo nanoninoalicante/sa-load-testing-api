@@ -1,5 +1,6 @@
 import { Router } from "express";
 import TimeoutTestingRoutes from "./TimeoutTesting";
+import UsersRoutes from "./Users";
 
 const routes = Router();
 routes.get("/debug-sentry", (req, res, next) => {
@@ -15,5 +16,6 @@ routes.get("/", (req, res, next) => {
 });
 
 routes.use("/timeout", TimeoutTestingRoutes)
+routes.use("/users", UsersRoutes)
 
 export default routes;
