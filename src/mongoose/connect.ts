@@ -18,9 +18,9 @@ export const main = async () => {
     try {
         connection = mongoose.createConnection(MONGODB_HOST, {
             serverSelectionTimeoutMS: 2000,
-            maxPoolSize: 100,
-            waitQueueTimeoutMS: 2000,
-            connectTimeoutMS: 2000
+            maxPoolSize: 700,
+            waitQueueTimeoutMS: 300,
+            connectTimeoutMS: 1000
         })
         await connection.asPromise();
         User = connection.model('User', usersSchema);
