@@ -6,7 +6,7 @@ export const usersSchema = new mongoose.Schema({
     name: String,
     updatedAt: String,
     items: Array
-}, { skipVersioning: true });
+}, { skipVersioning: { dontVersionMe: true } });
 export const createUser = async (data: any) => {
     const user = new User(data);
     return await user.save();
