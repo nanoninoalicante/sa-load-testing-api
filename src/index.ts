@@ -54,14 +54,16 @@ app.use(Sentry.Handlers.errorHandler() as express.ErrorRequestHandler);
 app.use(responseMiddleware);
 
 app.use(errorMiddleware);
-(async () => {
-    try {
-        await main();
-        app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
-    } catch (error) {
-        // throw fatal error
-        app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
-    }
-})();
+
+app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+// (async () => {
+//     try {
+//         await main();
+//         app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+//     } catch (error) {
+//         // throw fatal error
+//         app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+//     }
+// })();
 
 // start the express server

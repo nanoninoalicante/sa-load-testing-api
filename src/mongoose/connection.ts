@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
+import { config as dotenvConfig } from "dotenv"
+dotenvConfig();
 const config: any = {
     default: 'main',
-    main: process.env.NN_DB_AUTH,
-    content: process.env.NN_DB_CONTENT,
-    customer: process.env.NN_DB_CUSTOMER,
-    inventory: process.env.NN_DB_INVENTORY,
-    publication: process.env.NN_DB_PUBLICATION
+    main: process.env.MONGODB_HOST,
+    content: process.env.MONGODB_HOST,
+    customer: process.env.MONGODB_HOST,
+    inventory: process.env.MONGODB_HOST,
+    publication: process.env.MONGODB_HOST
 };
 
 mongoose.Promise = global.Promise;
@@ -20,7 +21,7 @@ let publicationConnect = '';
 function createConnection(name: string) {
     let  connectNames:any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
 
-    connectNames[name] = mongoose.createConnection(config[name], { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
+    connectNames[name] = mongoose.createConnection(config[name], {});
     connectNames[name].on('connected', () => {
         console.log("Mongoose default connection is open to ", name);
     });
@@ -48,11 +49,10 @@ const contentConnection = createConnection('content');
 const customerConnection = createConnection('customer');
 const inventoryConnection = createConnection('inventory');
 const publicationConnection = createConnection('publication');
-
-module.exports = {
+export {
     mainConnection,
     contentConnection,
     customerConnection,
     inventoryConnection,
     publicationConnection
-};
+ }
