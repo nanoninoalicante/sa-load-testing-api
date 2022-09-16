@@ -19,19 +19,19 @@ let customerConnect = '';
 let inventoryConnect = '';
 let publicationConnect = '';
 
-export let connectNames:any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
+export let connectNames: any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
 export let User: any = null;
 
 async function createConnection(name: string) {
 
-    connectNames[name] = mongoose.createConnection(config[name], {});
+    connectNames[name] = mongoose.createConnection(config[name], { maxPoolSize: 10, maxIdleTimeMS: 10, waitQueueTimeoutMS: 5000 });
     await connectNames[name].asPromise();
     connectNames[name].on('connected', () => {
         console.log("Mongoose default connection is open to ", name);
     });
 
     connectNames[name].on('error', (err: any) => {
-        console.log("Mongoose default connection has occured "+err+" error");
+        console.log("Mongoose default connection has occured " + err + " error");
     });
 
     connectNames[name].on('disconnected', () => {
@@ -39,7 +39,7 @@ async function createConnection(name: string) {
     });
 
     process.on('SIGINT', () => {
-        connectNames[name].close(function(){
+        connectNames[name].close(function () {
             console.log("Mongoose default connection is disconnected due to application termination");
             process.exit(0);
         });
@@ -52,4 +52,4 @@ async function createConnection(name: string) {
 
 export {
     createConnection
- }
+}
