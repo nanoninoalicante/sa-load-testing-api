@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {ObjectId} from 'mongoose';
 // import { mainConnection } from '../mongoose/connection';
 // import { connectNames } from '../mongoose/connection-v2';
 import { User } from "../mongoose/connection-v2"
@@ -16,7 +16,7 @@ export const updateUser = async (data: any) => {
 }
 
 export const saveUser = async (data: any) => {
-    const user = await User.findOne()
-    user.updatedAt = data.updatedAt;
+    const user = await User.findOne({_id: data._id})
+    user.updatedAt = "test";
     return await user.save();
 }
