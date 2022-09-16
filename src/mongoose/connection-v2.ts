@@ -24,7 +24,7 @@ export let User: any = null;
 
 async function createConnection(name: string) {
 
-    connectNames[name] = mongoose.createConnection(config[name], { maxPoolSize: 10, maxIdleTimeMS: 10, waitQueueTimeoutMS: 5000 });
+    connectNames[name] = mongoose.createConnection(config[name], { maxPoolSize: 50, maxIdleTimeMS: 10, socketTimeoutMS: 2000, waitQueueTimeoutMS: 5000, connectTimeoutMS: 2000 });
     await connectNames[name].asPromise();
     connectNames[name].on('connected', () => {
         console.log("Mongoose default connection is open to ", name);
