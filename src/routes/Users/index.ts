@@ -1,6 +1,6 @@
 import { Router } from "express";
 import randomWords from "random-words";
-import { createUser, updateUser } from "../../models/users"
+import { createUser, saveUser, updateUser } from "../../models/users"
 
 const routes = Router();
 
@@ -16,6 +16,15 @@ routes.all("/:id/update", async (req, res, next) => {
     const id = req.params.id;
     const user = { _id: id, updatedAt: new Date().toISOString() }
     const response = await updateUser(user)
+    console.log('res: ', response);
+    res.locals.response = user;
+    next();
+});
+
+routes.all("/:id/save", async (req, res, next) => {
+    const id = req.params.id;
+    const user = { _id: id, updatedAt: new Date().toISOString() }
+    const response = await saveUser(user)
     console.log('res: ', response);
     res.locals.response = user;
     next();

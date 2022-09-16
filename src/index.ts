@@ -13,6 +13,7 @@ import {
     responseMiddleware,
 } from "./middleware/middleware";
 import { main, disconnect } from "./mongoose/connect";
+import { createConnection } from "./mongoose/connection-v2";
 dotenv.config();
 const app = express();
 Sentry.init({
@@ -55,15 +56,13 @@ app.use(responseMiddleware);
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
-// (async () => {
-//     try {
-//         await main();
-//         app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
-//     } catch (error) {
-//         // throw fatal error
-//         app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
-//     }
-// })();
-
-// start the express server
+// app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+(async () => {
+    try {
+        await createConnection("main");
+        app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+    } catch (error) {
+        // throw fatal error
+        app.listen(PORT, () => console.log(`Node server listening on port ${PORT}!`));
+    }
+})();

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { config as dotenvConfig } from "dotenv"
+import { usersSchema } from '../models/users';
 dotenvConfig();
 const config: any = {
     default: 'main',
@@ -18,10 +19,13 @@ let customerConnect = '';
 let inventoryConnect = '';
 let publicationConnect = '';
 
-function createConnection(name: string) {
-    let  connectNames:any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
+export let connectNames:any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
+export let User: any = null;
+
+async function createConnection(name: string) {
 
     connectNames[name] = mongoose.createConnection(config[name], {});
+    await connectNames[name].asPromise();
     connectNames[name].on('connected', () => {
         console.log("Mongoose default connection is open to ", name);
     });
@@ -41,18 +45,11 @@ function createConnection(name: string) {
         });
     });
 
+    User = connectNames["main"].model('User', usersSchema);
+
     return connectNames[name];
 }
 
-// const mainConnection = createConnection('main');
-// const contentConnection = createConnection('content');
-// const customerConnection = createConnection('customer');
-// const inventoryConnection = createConnection('inventory');
-// const publicationConnection = createConnection('publication');
-// export {
-//     mainConnection,
-//     contentConnection,
-//     customerConnection,
-//     inventoryConnection,
-//     publicationConnection
-//  }
+export {
+    createConnection
+ }
