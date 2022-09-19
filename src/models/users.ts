@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 // import { mainConnection } from '../mongoose/connection';
-// import { connectNames } from '../mongoose/connection-v2';
+
 import { User } from "../mongoose/connection-v2"
 export const usersSchema = new mongoose.Schema({
     name: String,

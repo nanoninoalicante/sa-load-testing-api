@@ -24,8 +24,13 @@ export let User: any = null;
 
 async function createConnection(name: string) {
 
-    connectNames[name] = mongoose.createConnection(config[name], { maxPoolSize: 50, maxIdleTimeMS: 10, socketTimeoutMS: 2000, waitQueueTimeoutMS: 5000, connectTimeoutMS: 2000 });
-    await connectNames[name].asPromise();
+    connectNames[name] = mongoose.createConnection(config[name], {
+        maxPoolSize: 50,
+        maxIdleTimeMS: 10,
+        socketTimeoutMS: 2000,
+        waitQueueTimeoutMS: 5000,
+        connectTimeoutMS: 2000
+    });
     connectNames[name].on('connected', () => {
         console.log("Mongoose default connection is open to ", name);
     });
@@ -34,8 +39,9 @@ async function createConnection(name: string) {
         console.log("Mongoose default connection has occured " + err + " error");
     });
 
-    connectNames[name].on('disconnected', () => {
+    connectNames[name].on('disconnected', async () => {
         console.log("Mongoose default connection is disconnected");
+        await connectNames[name].asPromise();
     });
 
     process.on('SIGINT', () => {
@@ -45,7 +51,14 @@ async function createConnection(name: string) {
         });
     });
 
+    await connectNames[name].asPromise();
     User = connectNames["main"].model('User', usersSchema);
+
+    // setTimeout(() => {
+    //     connectNames[name].close(function () {
+    //         console.log("force close mongodb");
+    //     });
+    // }, 10000)
 
     return connectNames[name];
 }

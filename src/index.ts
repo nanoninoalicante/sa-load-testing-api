@@ -46,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
 app.use(authMiddleware);
+// app.use(async (req: any, res: any, next: any) => await requestMiddleware(req, res, next));
 app.use(requestMiddleware);
 
 app.use(routes);

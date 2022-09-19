@@ -1,6 +1,6 @@
 import ksuid from "ksuid";
 import * as Sentry from "@sentry/node";
-
+import { connectNames, createConnection } from '../mongoose/connection-v2';
 import { config } from "dotenv";
 config();
 const ENVIRONMENT = process.env.ENVIRONMENT || "dev";
@@ -23,7 +23,7 @@ export const authMiddleware = (req: any, res: any, next: () => void) => {
       next();
 };
 
-export const requestMiddleware = (
+export const requestMiddleware = async (
       req: any,
       res: {
             locals: { requestId: string; requestTs: string };
@@ -32,6 +32,11 @@ export const requestMiddleware = (
       next: any
 ) => {
       console.log("before middleware");
+      console.log(connectNames.main._readyState);
+      if (connectNames.main._readyState !== 1) {
+            console.log('need to reconnect')
+            await createConnection("main");
+      }
       res.locals.requestId = ksuid.randomSync().string;
       res.locals.requestTs = new Date().toISOString();
       // res.setHeader("X-API-REQUEST-ID", res.locals.requestId);
