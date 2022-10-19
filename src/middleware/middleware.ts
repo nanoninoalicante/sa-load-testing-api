@@ -65,7 +65,7 @@ export const responseMiddleware = (req: any, res: any) => {
 };
 
 export const errorMiddleware = (err: any, req: any, res: any, next: any) => {
-      console.log("error: ", err);
+      console.log("error middleware: ", err);
       Sentry.captureException(err);
       res.status(400).json({
             error: err.message || err,
