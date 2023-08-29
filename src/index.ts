@@ -62,7 +62,7 @@ app.use(errorMiddleware);
       try {
             await createConnection("main").catch(e => {
                   console.log("error from mongo connection");
-            });
+            }); 
             app.listen(PORT, () =>
                   console.log(`Node server listening on port ${PORT}!`)
             );

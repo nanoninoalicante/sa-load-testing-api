@@ -22,5 +22,6 @@ RUN npm ci
 COPY . .
 # Build
 RUN npm run build-container
-# Start the service
-CMD npm start
+
+RUN npm install pm2 -g
+CMD [ "pm2-runtime", "npm", "--", "start" ]
