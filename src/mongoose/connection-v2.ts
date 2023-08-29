@@ -13,11 +13,11 @@ const config: any = {
 
 mongoose.Promise = global.Promise;
 
-let mainConnect = '';
-let contentConnect = '';
-let customerConnect = '';
-let inventoryConnect = '';
-let publicationConnect = '';
+const mainConnect = '';
+const contentConnect = '';
+const customerConnect = '';
+const inventoryConnect = '';
+const publicationConnect = '';
 
 export let connectNames: any = { main: 'mainConnect', content: 'contentConnect', customer: 'customerConnect', inventory: 'inventoryConnect', publication: 'publicationConnect' };
 export let User: any = null;
@@ -40,27 +40,20 @@ async function createConnection(name: string) {
         throw new Error("Mongoose connection error")
     });
 
-    connectNames[name].on('disconnected', () => {
+    connectNames[name].on('disconnected', async () => {
         console.log("Mongoose default connection is disconnected");
-
-        throw new Error("Mongoose disconnected")
+        await connectNames[name].connect();
     });
 
-    process.on('SIGINT', () => {
-        connectNames[name].close(function () {
-            console.log("Mongoose default connection is disconnected due to application termination");
-            process.exit(0);
-        });
-    });
+    // process.on('SIGINT', () => {
+    //     connectNames[name].close(function () {
+    //         console.log("Mongoose default connection is disconnected due to application termination");
+    //         process.exit(0);
+    //     });
+    // });
 
     await connectNames[name].asPromise();
-    User = connectNames["main"].model('User', usersSchema);
-
-    setTimeout(() => {
-        connectNames[name].close(function () {
-            console.log("force close mongodb");
-        });
-    }, 10000)
+    User = connectNames.main.model('User', usersSchema);
 
     return connectNames[name];
 }

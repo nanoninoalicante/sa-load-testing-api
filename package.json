@@ -42,6 +42,7 @@
     "@types/node": "^16.4.10",
     "@types/sleep": "^0.0.8",
     "ava": "^3.15.0",
+    "forever": "^4.0.3",
     "nodemon": "^2.0.12",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
