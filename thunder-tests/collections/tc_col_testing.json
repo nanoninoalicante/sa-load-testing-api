@@ -10,16 +10,16 @@
             "colId": "75f43b7b-4099-4121-b9c3-f318c20f5837",
             "containerId": "",
             "name": "Hello World",
-            "url": "http://127.0.0.1:8080/?api_key=50edf1cb-340c-4e00-a135-658566e7d9e2",
+            "url": "{{baseUrl}}/?api_key={{apiKey}}",
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-08-29T07:36:34.233Z",
-            "modified": "2023-08-29T07:46:37.307Z",
+            "modified": "2023-08-29T14:55:47.327Z",
             "headers": [],
             "params": [
                 {
                     "name": "api_key",
-                    "value": "50edf1cb-340c-4e00-a135-658566e7d9e2",
+                    "value": "{{apiKey}}",
                     "isPath": false
                 }
             ],
@@ -30,16 +30,16 @@
             "colId": "75f43b7b-4099-4121-b9c3-f318c20f5837",
             "containerId": "",
             "name": "Throw error",
-            "url": "http://127.0.0.1:8080/debug-sentry?api_key=50edf1cb-340c-4e00-a135-658566e7d9e2",
+            "url": "{{baseUrl}}/debug-sentry?api_key={{apiKey}}",
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-08-29T07:37:16.440Z",
-            "modified": "2023-08-29T07:48:31.419Z",
+            "modified": "2023-08-29T14:56:07.589Z",
             "headers": [],
             "params": [
                 {
                     "name": "api_key",
-                    "value": "50edf1cb-340c-4e00-a135-658566e7d9e2",
+                    "value": "{{apiKey}}",
                     "isPath": false
                 }
             ],
@@ -50,16 +50,16 @@
             "colId": "75f43b7b-4099-4121-b9c3-f318c20f5837",
             "containerId": "",
             "name": "Throw error Copy",
-            "url": "http://127.0.0.1:8080/error?api_key=50edf1cb-340c-4e00-a135-658566e7d9e2",
+            "url": "{{baseUrl}}/error?api_key={{apiKey}}",
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-08-29T08:32:28.551Z",
-            "modified": "2023-08-29T08:32:35.555Z",
+            "modified": "2023-08-29T14:56:19.951Z",
             "headers": [],
             "params": [
                 {
                     "name": "api_key",
-                    "value": "50edf1cb-340c-4e00-a135-658566e7d9e2",
+                    "value": "{{apiKey}}",
                     "isPath": false
                 }
             ],

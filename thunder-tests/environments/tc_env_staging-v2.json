@@ -1,0 +1,18 @@
+{
+    "_id": "c27e835e-155c-4b87-ae32-35497a5ff85f",
+    "name": "staging-v2",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-08-29T14:54:36.112Z",
+    "modified": "2023-08-29T14:54:36.112Z",
+    "data": [
+        {
+            "name": "baseUrl",
+            "value": "https://staracademy-load-testing-api-staging-v2-us-qv5lrd3x2a-ue.a.run.app"
+        },
+        {
+            "name": "apiKey",
+            "value": "50edf1cb-340c-4e00-a135-658566e7d9e2"
+        }
+    ]
+}
