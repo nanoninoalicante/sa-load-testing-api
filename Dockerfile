@@ -21,6 +21,7 @@ RUN npm ci
 # Copy the local code to the container
 COPY . .
 # Build
-# RUN npm run build-container
-# Start the service
-CMD npm start
+RUN npm run build-container
+
+RUN npm install pm2 -g
+CMD [ "pm2-runtime", "npm", "--", "start" ]
