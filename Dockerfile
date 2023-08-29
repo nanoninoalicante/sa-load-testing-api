@@ -23,5 +23,6 @@ COPY . .
 # Build
 RUN npm run build-container
 
-RUN npm install pm2 -g
-CMD [ "pm2-runtime", "npm", "--", "start" ]
+# RUN npm install pm2 -g
+# CMD [ "pm2-runtime", "npm", "--", "start" ]
+CMD [ "npm", "start"]
